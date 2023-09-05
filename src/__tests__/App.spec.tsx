@@ -12,14 +12,16 @@ describe('App Component', () => {
   });
 
   it('should be able to add new item to the list', async () => {
-    const { getByText } = render(<App />)
+    const { getByText, getByPlaceholderText, findByText } = render(<App />)
 
+    const inputElement = getByPlaceholderText('New Item');
     const addButton = getByText('Adicionar');
 
+    userEvent.type(inputElement, 'New')
     userEvent.click(addButton);
 
     await waitFor(() => {
-      expect(getByText('Novo')).toBeInTheDocument()
+      expect(findByText('New')).toBeInTheDocument();
     })
   })
 })
